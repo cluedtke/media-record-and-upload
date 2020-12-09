@@ -2,6 +2,7 @@ import express, { Application } from "express";
 import { createServer as createHttpServer, Server as HTTPServer } from "http";
 import multer from "multer";
 import path from "path";
+import fs from "fs";
 
 export class Server {
   private app: Application;
@@ -17,7 +18,7 @@ export class Server {
     // serve up public files
     this.app.use(express.static(path.join(__dirname, "../public")));
 
-    // setup route(s)
+    // setup multer
     const upload = multer({
       storage: multer.diskStorage({
         destination: (req, file, callback) => {
@@ -29,9 +30,22 @@ export class Server {
       }),
     }).single("file");
 
+    // setup routes
     this.app.get("/", (req, res) => {
       res.sendFile("index.html");
     });
+
+    this.app.get("/uploads/:filename", (req, res) => {
+      const filepath = path.join(__dirname, "../uploads/", req.params.filename);
+      fs.access(filepath, fs.constants.F_OK, (err) => {
+        if (err) {
+          res.status(404).send("File not found.");
+        } else {
+          res.sendFile(filepath);
+        }
+      })
+    });
+
     this.app.post("/uploadFile", (req, res) => {
       upload(req, res, (err) => {
         if (err) {
