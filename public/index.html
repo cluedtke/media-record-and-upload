@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>RecordRTC to Node.js</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <h1>RecordRTC to Node.js</h1>
+    <p>
+      <video></video>
+    </p>
+
+    <hr />
+
+    <div>
+      <label id="percentage">0%</label>
+      <progress id="progress-bar" value="0"></progress>
+      <br />
+    </div>
+
+    <hr />
+
+    <div>
+      <button id="btn-start-recording">Start Recording</button>
+      <button id="btn-stop-recording" disabled="">Stop Recording</button>
+    </div>
+
+    <script src="./scripts/RecordRTC.min.js"></script>
+    <script src="./scripts/index.js"></script>
+
+    <footer
+      style="
+        width: 100%;
+        position: fixed;
+        right: 0;
+        text-align: center;
+        color: red;
+      "
+    >
+      <h2 id="footer-h2"></h2>
+    </footer>
+  </body>
+</html>
